@@ -6,7 +6,7 @@ let m = 100;
 // let m = −5;
 // let n = -3; 
 // let m = −10;
-
+// Поиск случайного числа
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 function randomOdd(n1, n2) {
