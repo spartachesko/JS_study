@@ -14,21 +14,6 @@ let n = 5;
 // let b = 2.123;
 // let n = 5;
 
-// function CalcFraction_a(a,n){
-//     let result_a =  (a - Math.floor(a))*(Math.pow(10,n));
-    
-
-//     return Math.floor(result_a)
-// }
-
-// function CalcFraction_b(b,n){
-//     let result_b =  (b - Math.floor(b))*(Math.pow(10,n));
-//     return Math.floor(result_b)
-// }
-
-// let result_a = CalcFraction_a(a,n);
-// let result_b = CalcFraction_b(b,n);
-
 let result_a =  Math.floor((a - Math.floor(a))*(Math.pow(10,n)));
 let result_b =  Math.floor((b - Math.floor(b))*(Math.pow(10,n)));
 
