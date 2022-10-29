@@ -68,10 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log('item indexes', item)
           console.log('index indexes', index)
           let closeCard = document.getElementById(item)
+          index = index + 1
 
-          index !== array.length ?
-          closeCard.classList.add("card__close") :
-          setTimeout(closeCard.classList.add("card__close"), 2000) 
+          index === array.length ?
+          setTimeout(closeCard.classList.add("card__close"), 20000) :
+          closeCard.classList.add("card__close") 
         })
 
 
