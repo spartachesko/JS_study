@@ -42,15 +42,11 @@
     };
   }
 
-
-
   function createTodoList(){
     let list = document.createElement('ul');
     list.classList.add('list-group');
     return list;
   }
-
-
 
   function createTodoItem(obj){
 
@@ -132,8 +128,6 @@
     localStorage.setItem(keyName, JSON.stringify(arr));
 
   }
-
-
 
   function createTodoApp(container, title = 'Список дел',keyName){
     let todoAppTitle = createAppTitle(title);
