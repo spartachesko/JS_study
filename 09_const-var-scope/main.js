@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cardsArray = []
   let checkSecondCard = []
   let selectedCards = []
+  let openedCards = 0
 
   function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -63,10 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i < result.length; ++i) {
       if (result[i - 1] !== result[i]) {
 
-
         indexes.map(function(item, index, array){
-          console.log('item indexes', item)
-          console.log('index indexes', index)
+          // console.log('item indexes', item)
+          // console.log('index indexes', index)
           let closeCard = document.getElementById(item)
           index = index + 1
 
@@ -75,11 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
           closeCard.classList.add("card__close") 
         })
 
-
-
-
       }  else {
         console.log('values the same')
+        openedCards++
+        if(openedCards === cardsArray.length){
+          
+        }
       }
       selectedCards = []
     }
@@ -98,8 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let rawObj = {}
     rawObj[id] = valueInCard
     if (selectedCards.length === 1) {
-      console.log('id', id)
-      console.log('selectedCards[0]', selectedCards[0])
       selectedCards.push(rawObj)
       checkValues(selectedCards)
     } else {
