@@ -1,11 +1,24 @@
 * {
-  outline: 1px solid pink;
+  /* outline: 1px solid pink; */
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
 }
 
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  max-width: 420px;
+  min-height: 420px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card {
@@ -14,7 +27,11 @@
 }
 
 .card__close {
-  color:red;
   background-color: blueviolet;
+  color:blueviolet;
+  /* color:red; */
 }
 
+#restart {
+  margin-top: 10px;
+}

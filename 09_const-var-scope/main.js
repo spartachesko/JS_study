@@ -111,10 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let cards = document.querySelectorAll('.card')
   let btnRestart = document.getElementById('restart')
+  let btnRestart2 = document.getElementById('restart2')
 
   console.log('cards', cards)
 
   btnRestart.addEventListener('click', () => location.reload())
+  btnRestart2.addEventListener('click', () => location.reload())
   
   cards.forEach(element => {
     element.addEventListener('click', (el) => handler(el))
