@@ -63,29 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 1; i < result.length; ++i) {
       if (result[i - 1] !== result[i]) {
-
-        indexes.map(function(item, index, array){
-          // console.log('item indexes', item)
-          // console.log('index indexes', index)
+        let prevCloseCard
+        indexes.map(function (item, index, array) {
           let closeCard = document.getElementById(item)
           index = index + 1
-
-          index === array.length ?
-          setTimeout(closeCard.classList.add("card__close"), 20000) :
-          closeCard.classList.add("card__close") 
+          index === array.length ? setTimeout(() => {
+            closeCard.classList.add("card__close")
+            prevCloseCard.classList.add("card__close")
+        }, 300) : prevCloseCard = closeCard;
         })
 
-      }  else {
+      } else {
         console.log('values the same')
         openedCards++
-        if(openedCards === cardsArray.length){
-          
+        if (openedCards === cardsArray.length) {
+
         }
       }
       selectedCards = []
     }
     result = []
-    indexes =[]
+    indexes = []
   }
 
 
