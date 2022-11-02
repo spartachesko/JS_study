@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let card = document.createElement('div')
     card.classList.add('card')
     card.classList.add('card__close')
-    let number = getRandomIntInclusive(1, 5)
+    let number = getRandomIntInclusive(1, 8)
     if (addNumber(number)) {
       card.innerText = `CARD ${number}`
       card.setAttribute('id', i)
@@ -46,12 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return
   }
 
-
-
-  for (let i = 0; cardsArray.length < 10; i++) {
+  for (let i = 0; cardsArray.length < 16; i++) {
     createCard(i)
   }
 
+  function winInfo(){
+    if(openedCards=== cardsArray.length/2){
+      $('#myModal').modal()
+      btnRestart.classList.remove('invisible')
+      btnRestart.addEventListener('click', () => location.reload())
+    }
+  }
 
   function checkValues(arrayForCheck) {
     let result = arrayForCheck.map(function (item, index, array) {
@@ -76,18 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.log('values the same')
         openedCards++
-        if (openedCards === cardsArray.length) {
-
-        }
+        winInfo()
       }
       selectedCards = []
+
     }
     result = []
     indexes = []
   }
 
-
   function handler(el) {
+    // $('#myModal').modal()
     let id = el.target.id
     let selectedCard = document.getElementById(id)
     selectedCard.classList.remove("card__close")
@@ -105,13 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
   let cards = document.querySelectorAll('.card')
+  let btnRestart = document.getElementById('restart')
+
   console.log('cards', cards)
+
+  btnRestart.addEventListener('click', () => location.reload())
+  
   cards.forEach(element => {
     element.addEventListener('click', (el) => handler(el))
   });
-
+  
 })
 
 
