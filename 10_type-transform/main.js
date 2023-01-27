@@ -1,4 +1,17 @@
 // Этап 1. В HTML файле создайте верстку элементов, которые будут статичны(неизменны).
+// Валидация даты рождения
+document.addEventListener('DOMContentLoaded', function(){
+  let d = new Date();
+  let day = d.getDate();
+  let month = d.getMonth() + 1;
+  let year = d.getFullYear();
+  let bDay = document.getElementById('bDay')
+  let startStudy = document.getElementById('startStudy')
+  bDay.value = day + "-" + month + "-" + year;
+  startStudy.value = day + "-" + month + "-" + year;
+});
+
+
 
 // Этап 2. Создайте массив объектов студентов.Добавьте в него объекты студентов, например 5 студентов.
 
