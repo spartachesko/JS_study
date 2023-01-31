@@ -112,10 +112,46 @@ function renderStudentsTable(studentsArray) {
   studentsArray.forEach(function (student) {
     tbody.append(getStudentItem(student));
   });
-}
-renderStudentsTable(studentsList);
+};
+
+
+
 // Этап 5. К форме добавления студента добавьте слушатель события отправки формы, в котором будет проверка введенных данных.Если проверка пройдет успешно, добавляйте объект с данными студентов в массив студентов и запустите функцию отрисовки таблицы студентов, созданную на этапе 4.
 
+function checkInputedTime(current, inputed) {
+  console.log('тут');
+  if (inputed > current) {
+    console.log('уже тут');
+    let errorInfo = document.createElement('span');
+    errorInfo.classList.add('text-warning');
+    errorInfo.textContent = 'Дата не должна быть позже текущей.';
+    return errorInfo;
+  }
+};
+
+
+function addStudent() {
+  let addButton = document.querySelector(".addStudent");
+  addButton.addEventListener('click', function () {
+    let name = document.getElementById('name');
+    let lastName = document.getElementById('lastName');
+    let middleName = document.getElementById('middleName');
+    let bDay = document.getElementById('bDay');
+    let startStudy = document.getElementById('startStudy');
+
+
+    let currentTime = Date.parse(new Date());
+
+    bDay.append(checkInputedTime(currentTime, Date.parse(bDay.valueAsDate)));
+
+
+
+
+  }
+  )
+};
+console.log('hi');
+addStudent();
 
 // Этап 5. Создайте функцию сортировки массива студентов и добавьте события кликов на соответствующие колонки.
 

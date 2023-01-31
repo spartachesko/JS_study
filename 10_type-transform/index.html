@@ -20,36 +20,38 @@
   <main>
     <div class="container">
       <section>
-        <form>
+        <form action="#">
           <div class="row g-3">
             <div class="col">
               <label for="name">Имя студента:</label>
-              <input type="text" class="form-control" placeholder="Имя" aria-label="First name" id="name">
+              <input type="text" class="form-control" placeholder="Имя" aria-label="First name" id="name" required>
             </div>
             <div class="col">
               <label for="lastName">Фамилия студента:</label>
-              <input type="text" class="form-control" placeholder="Фамилия" aria-label="Last name" id="lastName">
+              <input type="text" class="form-control" placeholder="Фамилия" aria-label="Last name" id="lastName"
+                required>
             </div>
             <div class="col">
               <label for="middleName">Отчество студента:</label>
-              <input type="text" class="form-control" placeholder="Отчество" aria-label="Middle name" id="middleName">
+              <input type="text" class="form-control" placeholder="Отчество" aria-label="Middle name" id="middleName"
+                required>
             </div>
           </div>
           <div class="row g-3">
             <div class="col">
               <label for="bDay">Дата рождения:</label>
-              <input type="date" name="trip-start" min="1900-01-01" class="form-control" id="bDay">
+              <input type="date" name="trip-start" min="1900-01-01" class="form-control" id="bDay" required>
             </div>
             <div class="col">
               <label for="startStudy">Год начала обучения:</label>
-              <input type="date" name="trip-start" min="2000-01-01" class="form-control" id="startStudy">
+              <input type="number" name="trip-start" min="2000" class="form-control" id="startStudy" required>
             </div>
             <div class="col">
               <label for="department">Факультет:</label>
-              <input type="text" class="form-control" placeholder="Факультет" id="department">
+              <input type="text" class="form-control" placeholder="Факультет" id="department" required>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-3">Добавить студента</button>
+          <button type="submit" class="btn btn-primary mt-3 addStudent">Добавить студента</button>
         </form>
       </section>
       <section class="bg-light p-5">
