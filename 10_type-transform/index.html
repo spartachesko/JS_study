@@ -19,37 +19,66 @@
   <header></header>
   <main>
     <div class="container">
-      <form>
-        <div class="row g-3">
-          <div class="col">
-            <label for="name">Имя студента:</label>
-            <input type="text" class="form-control" placeholder="Имя" aria-label="First name" id="name">
+      <section>
+        <form>
+          <div class="row g-3">
+            <div class="col">
+              <label for="name">Имя студента:</label>
+              <input type="text" class="form-control" placeholder="Имя" aria-label="First name" id="name">
+            </div>
+            <div class="col">
+              <label for="lastName">Фамилия студента:</label>
+              <input type="text" class="form-control" placeholder="Фамилия" aria-label="Last name" id="lastName">
+            </div>
+            <div class="col">
+              <label for="middleName">Отчество студента:</label>
+              <input type="text" class="form-control" placeholder="Отчество" aria-label="Middle name" id="middleName">
+            </div>
           </div>
-          <div class="col">
-            <label for="lastName">Фамилия студента:</label>
-            <input type="text" class="form-control" placeholder="Фамилия" aria-label="Last name" id="lastName">
+          <div class="row g-3">
+            <div class="col">
+              <label for="bDay">Дата рождения:</label>
+              <input type="date" name="trip-start" min="1900-01-01" class="form-control" id="bDay">
+            </div>
+            <div class="col">
+              <label for="startStudy">Год начала обучения:</label>
+              <input type="date" name="trip-start" min="2000-01-01" class="form-control" id="startStudy">
+            </div>
+            <div class="col">
+              <label for="department">Факультет:</label>
+              <input type="text" class="form-control" placeholder="Факультет" id="department">
+            </div>
           </div>
-          <div class="col">
-            <label for="middleName">Отчество студента:</label>
-            <input type="text" class="form-control" placeholder="Отчество" aria-label="Middle name" id="middleName">
-          </div>
+          <button type="submit" class="btn btn-primary mt-3">Добавить студента</button>
+        </form>
+      </section>
+      <section class="bg-light p-5">
+        <h3>Список студентов</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="bg-dark text-light">
+              <th>Ф.И.О.</th>
+              <th>Факультет</th>
+              <th>Дата рождения(возраст)</th>
+              <th>Годы обучения(номер курса)</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="row g-3">
-          <div class="col">
-            <label for="bDay">Дата рождения:</label>
-            <input type="date" name="trip-start" min="1900-01-01" class="form-control" id="bDay">
-          </div>
-          <div class="col">
-            <label for="startStudy">Год начала обучения:</label>
-            <input type="date" name="trip-start" min="2000-01-01" class="form-control" id="startStudy">
-          </div>
-          <div class="col">
-            <label for="department">Факультет:</label>
-            <input type="text" class="form-control" placeholder="Факультет" id="department">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </section>
     </div>
   </main>
   <footer></footer>
@@ -61,7 +90,6 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="main.js"></script>
-
 </body>
 
 </html>

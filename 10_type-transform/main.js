@@ -1,27 +1,107 @@
 // Этап 1. В HTML файле создайте верстку элементов, которые будут статичны(неизменны).
-// Валидация даты рождения
-document.addEventListener('DOMContentLoaded', function(){
-  let d = new Date();
-  let day = d.getDate();
-  let month = d.getMonth() + 1;
-  let year = d.getFullYear();
-  let bDay = document.getElementById('bDay')
-  let startStudy = document.getElementById('startStudy')
-  bDay.value = day + "-" + month + "-" + year;
-  startStudy.value = day + "-" + month + "-" + year;
-});
+
 
 
 
 // Этап 2. Создайте массив объектов студентов.Добавьте в него объекты студентов, например 5 студентов.
 
 const studentsList = [
-    // Добавьте сюда объекты студентов
+  // Добавьте сюда объекты студентов
+  {
+    firstName: "Петр",
+    secondName: "Иванов",
+    middleName: "Максимович",
+    bDay: new Date(1995, 11, 17),
+    startStudy: 2002,
+    department: 'Экономический',
+  },
+  {
+    firstName: "Константин",
+    secondName: "Петров",
+    middleName: "Сидорович",
+    bDay: new Date(1997, 9, 1),
+    startStudy: 2014,
+    department: 'Физический',
+  },
+  {
+    firstName: "Анна",
+    secondName: "Иванова",
+    middleName: "Олеговна",
+    bDay: new Date(1990, 2, 10),
+    startStudy: 2011,
+    department: 'Филологический',
+  },
+  {
+    firstName: "Вероника",
+    secondName: "Колышева",
+    middleName: "Денисовна",
+    bDay: new Date(2000, 11, 2),
+    startStudy: 2020,
+    department: 'Экономический',
+  },
+  {
+    firstName: "Никита",
+    secondName: "Кошкин",
+    middleName: "Сидорович",
+    bDay: new Date(2001, 1, 17),
+    startStudy: 2022,
+    department: 'Физический',
+  },
 ]
 
 // Этап 3. Создайте функцию вывода одного студента в таблицу, по аналогии с тем, как вы делали вывод одного дела в модуле 8. Функция должна вернуть html элемент с информацией и пользователе.У функции должен быть один аргумент - объект студента.
+function formatDate(date) {
+
+  var dd = date.getDate();
+  if (dd < 10) dd = '0' + dd;
+
+  var mm = date.getMonth() + 1;
+  if (mm < 10) mm = '0' + mm;
+
+  var yy = date.getFullYear();
+  if (yy < 10) yy = '0' + yy;
+
+  return dd + '.' + mm + '.' + yy;
+}
+
+function howCourse(startYear) {
+  let endYear = new Date().getFullYear();
+  let currentYear = new Date().getFullYear();
+  let currentCourse = currentYear - startYear;
+
+  if (currentCourse > 0 && currentCourse < 5) {
+    currentCourse = new Date().getMonth() > 8 ? currentCourse + 1 : currentCourse;
+    if (currentCourse > 4) {
+      endYear = startYear + 4;
+      return `${startYear}-${endYear}(закончил)`;
+    }
+    return `${startYear}-${endYear}(${currentCourse} курс)`;
+  } else {
+    return `${startYear}-${endYear}(закончил)`;
+  }
+};
 
 function getStudentItem(studentObj) {
+  let fullName = document.createElement('td');
+  let department = document.createElement('td');
+  let bDay = document.createElement('td');
+  let studyInfo = document.createElement('td');
+
+  let studentInfo = document.createElement('tr')
+
+  fullName.textContent = studentObj.secondName + ' ' + studentObj.firstName + ' ' + studentObj.middleName;
+  department.textContent = studentObj.department;
+  let age = Math.floor((Date.now() - studentObj.bDay) / (1000 * 60 * 60 * 24 * 30 * 12));
+  bDay.textContent = formatDate(studentObj.bDay) + `(${age})`;
+
+  studyInfo.textContent = howCourse(studentObj.startStudy);
+
+  studentInfo.append(fullName);
+  studentInfo.append(department);
+  studentInfo.append(bDay);
+  studentInfo.append(studyInfo);
+
+  return studentInfo;
 
 }
 
