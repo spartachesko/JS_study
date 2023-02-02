@@ -65,7 +65,7 @@ function formatDate(date) {
 }
 
 function howCourse(startYear) {
-  let endYear = new Date().getFullYear();
+  let endYear = startYear + 4;;
   let currentYear = new Date().getFullYear();
   let currentCourse = currentYear - startYear;
 
@@ -75,7 +75,7 @@ function howCourse(startYear) {
       endYear = startYear + 4;
       return `${startYear}-${endYear}(закончил)`;
     }
-    return `${startYear}-${endYear}(${currentCourse} курс)`;
+    return `${startYear}-${new Date().getFullYear()}(${currentCourse} курс)`;
   } else {
     return `${startYear}-${endYear}(закончил)`;
   }
@@ -119,9 +119,7 @@ function renderStudentsTable(studentsArray) {
 // Этап 5. К форме добавления студента добавьте слушатель события отправки формы, в котором будет проверка введенных данных.Если проверка пройдет успешно, добавляйте объект с данными студентов в массив студентов и запустите функцию отрисовки таблицы студентов, созданную на этапе 4.
 
 function checkInputedTime(current, inputed) {
-  console.log('тут');
   if (inputed > current) {
-    console.log('уже тут');
     let errorInfo = document.createElement('span');
     errorInfo.classList.add('text-warning');
     errorInfo.textContent = 'Дата не должна быть позже текущей.';
@@ -130,27 +128,74 @@ function checkInputedTime(current, inputed) {
 };
 
 
+function checkErrorsForm(checkForm) {
+  return checkForm.querySelectorAll('.text-warning');
+}
+
 function addStudent() {
-  let addButton = document.querySelector(".addStudent");
-  addButton.addEventListener('click', function () {
+  renderStudentsTable(studentsList);
+  let studentForm = document.querySelector(".studentForm");
+
+  studentForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    let oldErrors = checkErrorsForm(studentForm);
+    if (oldErrors.length > 0) {
+      for (let i = 0; i < oldErrors.length; i++) {
+        oldErrors[i].remove();
+      }
+      return
+    }
+
     let name = document.getElementById('name');
     let lastName = document.getElementById('lastName');
     let middleName = document.getElementById('middleName');
     let bDay = document.getElementById('bDay');
     let startStudy = document.getElementById('startStudy');
-
+    let department = document.getElementById('department');
 
     let currentTime = Date.parse(new Date());
 
-    bDay.append(checkInputedTime(currentTime, Date.parse(bDay.valueAsDate)));
+
+    if (checkInputedTime(new Date().getFullYear(), startStudy.value)) {
+      startStudy.after(checkInputedTime(new Date().getFullYear(), startStudy.value))
+    }
+
+    if (checkInputedTime(currentTime, Date.parse(bDay.valueAsDate))) {
+      bDay.after(checkInputedTime(currentTime, Date.parse(bDay.valueAsDate)));
+    }
+
+    if (checkErrorsForm(studentForm).length > 0) {
+      return
+    }
+
+    let studentsTable = document.querySelector(".studentsList");
+    while (studentsTable.firstChild) {
+      studentsTable.removeChild(studentsTable.firstChild);
+    }
 
 
+    let newStudent = {
+      firstName: name.value,
+      secondName: lastName.value,
+      middleName: middleName.value,
+      bDay: bDay.valueAsDate,
+      startStudy: parseInt(startStudy.value),
+      department: department.value,
+    }
 
-
+    studentsList.unshift(newStudent);
+    renderStudentsTable(studentsList);
   }
   )
+
+
+
+
 };
-console.log('hi');
+
+
+
 addStudent();
 
 // Этап 5. Создайте функцию сортировки массива студентов и добавьте события кликов на соответствующие колонки.
