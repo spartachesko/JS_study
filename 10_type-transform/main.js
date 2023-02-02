@@ -132,6 +132,13 @@ function checkErrorsForm(checkForm) {
   return checkForm.querySelectorAll('.text-warning');
 }
 
+function clearTableStudents() {
+  let studentsTable = document.querySelector(".studentsList");
+  while (studentsTable.firstChild) {
+    studentsTable.removeChild(studentsTable.firstChild);
+  }
+}
+
 function addStudent() {
   renderStudentsTable(studentsList);
   let studentForm = document.querySelector(".studentForm");
@@ -169,11 +176,7 @@ function addStudent() {
       return
     }
 
-    let studentsTable = document.querySelector(".studentsList");
-    while (studentsTable.firstChild) {
-      studentsTable.removeChild(studentsTable.firstChild);
-    }
-
+    clearTableStudents()
 
     let newStudent = {
       firstName: name.value,
@@ -188,10 +191,6 @@ function addStudent() {
     renderStudentsTable(studentsList);
   }
   )
-
-
-
-
 };
 
 
@@ -199,5 +198,39 @@ function addStudent() {
 addStudent();
 
 // Этап 5. Создайте функцию сортировки массива студентов и добавьте события кликов на соответствующие колонки.
+
+
+const sortStudents = (arr, prop, dir = false) => arr.sort((a, b) => (!dir ? a[prop] < b[prop] : a[prop] > b[prop]) ? -1 : 0);
+
+let sortName = document.querySelector(".sortName");
+let sortDepartment = document.querySelector(".sortDepartment");
+let sortBDay = document.querySelector(".sortBDay");
+let sortStudy = document.querySelector(".sortStudy");
+
+sortName.addEventListener('click', function() {
+  clearTableStudents();
+  renderStudentsTable(sortStudents(studentsList, 'secondName', false));
+  
+});
+
+
+
+sortDepartment.addEventListener('click', function() {
+  clearTableStudents();
+  renderStudentsTable(sortStudents(studentsList, 'department', false));
+});
+
+sortBDay.addEventListener('click', function() {
+  clearTableStudents();
+  renderStudentsTable(sortStudents(studentsList, 'bDay', false));
+});
+
+sortStudy.addEventListener('click', function() {
+  clearTableStudents();
+  renderStudentsTable(sortStudents(studentsList, 'startStudy', false));
+});
+
+
+
 
 // Этап 6. Создайте функцию фильтрации массива студентов и добавьте события для элементов формы.
