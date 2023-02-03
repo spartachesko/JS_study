@@ -109,6 +109,17 @@ function getStudentItem(studentObj) {
 
 function renderStudentsTable(studentsArray) {
   let tbody = document.querySelector(".studentsList");
+  const fioVal = document.getElementById('filter-fio').value;
+  const filterDep = document.getElementById('filter-dep').value;
+  const filterBday = document.getElementById('filter-bday').value;
+  const filterStudy = document.getElementById('filter-study').value;
+  clearTableStudents();
+
+  if(fioVal !== '') studentsArray = filter(studentsArray, 'secondName', fioVal)
+  if(filterDep !== '') studentsArray = filter(studentsArray, 'department', fioVal)
+  if(filterBday !== '') studentsArray = filter(studentsArray, 'bDay', fioVal)
+  if(filterStudy !== '') studentsArray = filter(studentsArray, 'startStudy', fioVal)
+  
   studentsArray.forEach(function (student) {
     tbody.append(getStudentItem(student));
   });
@@ -207,13 +218,13 @@ let sortDepartment = document.querySelector(".sortDepartment");
 let sortBDay = document.querySelector(".sortBDay");
 let sortStudy = document.querySelector(".sortStudy");
 
+
+
 sortName.addEventListener('click', function() {
   clearTableStudents();
   renderStudentsTable(sortStudents(studentsList, 'secondName', false));
   
 });
-
-
 
 sortDepartment.addEventListener('click', function() {
   clearTableStudents();
@@ -231,6 +242,29 @@ sortStudy.addEventListener('click', function() {
 });
 
 
-
-
 // Этап 6. Создайте функцию фильтрации массива студентов и добавьте события для элементов формы.
+
+
+let filteredStudents = [];
+
+function filter(arr, prop, value) {
+  let result = [];
+  let copy = [...arr];
+  console.log('HELLLOO');
+  for(const item of copy){
+    if(String(item[prop]).includes(value) == true) result.push(item)
+  }
+  return result
+};
+
+let startFilter = document.querySelector('.filterStudent');
+console.log(startFilter);
+
+startFilter.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log('fgdfgdfg');
+  renderStudentsTable(studentsList);
+}
+
+)
+

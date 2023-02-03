@@ -55,6 +55,16 @@
         </form>
       </section>
       <section class="bg-light p-5">
+        <h3>Фильтрация студентов</h3>
+        <form action="" id="filter-form">
+          <div class="row g-2">
+            <input type="text" placeholder="ФИО" class="form-control" id="filter-fio" >
+            <input type="text" placeholder="Факультет" class="form-control" id="filter-dep">
+            <input type="date" placeholder="Дата рождения" class="form-control" id="filter-bday">
+            <input type="number" placeholder="Год начала обучения" class="form-control" id="filter-study">
+            <button type="submit" class="filterStudent">Фильтровать</button>
+          </div>
+        </form>
         <h3>Список студентов</h3>
         <div class="table-responsive">
           <table class="table">
