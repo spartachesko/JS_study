@@ -109,17 +109,20 @@ function getStudentItem(studentObj) {
 
 function renderStudentsTable(studentsArray) {
   let tbody = document.querySelector(".studentsList");
+
   const fioVal = document.getElementById('filter-fio').value;
+
   const filterDep = document.getElementById('filter-dep').value;
   const filterBday = document.getElementById('filter-bday').value;
   const filterStudy = document.getElementById('filter-study').value;
   clearTableStudents();
 
-  if(fioVal !== '') studentsArray = filter(studentsArray, 'secondName', fioVal)
-  if(filterDep !== '') studentsArray = filter(studentsArray, 'department', fioVal)
-  if(filterBday !== '') studentsArray = filter(studentsArray, 'bDay', fioVal)
-  if(filterStudy !== '') studentsArray = filter(studentsArray, 'startStudy', fioVal)
-  
+  if (fioVal !== '') studentsArray = filterFIO(studentsArray, fioVal)
+
+  if (filterDep !== '') studentsArray = filter(studentsArray, 'department', filterDep)
+  if (filterBday !== '') studentsArray = filter(studentsArray, 'bDay', filterBday)
+  if (filterStudy !== '') studentsArray = filter(studentsArray, 'startStudy', filterStudy)
+
   studentsArray.forEach(function (student) {
     tbody.append(getStudentItem(student));
   });
@@ -220,23 +223,23 @@ let sortStudy = document.querySelector(".sortStudy");
 
 
 
-sortName.addEventListener('click', function() {
+sortName.addEventListener('click', function () {
   clearTableStudents();
   renderStudentsTable(sortStudents(studentsList, 'secondName', false));
-  
+
 });
 
-sortDepartment.addEventListener('click', function() {
+sortDepartment.addEventListener('click', function () {
   clearTableStudents();
   renderStudentsTable(sortStudents(studentsList, 'department', false));
 });
 
-sortBDay.addEventListener('click', function() {
+sortBDay.addEventListener('click', function () {
   clearTableStudents();
   renderStudentsTable(sortStudents(studentsList, 'bDay', false));
 });
 
-sortStudy.addEventListener('click', function() {
+sortStudy.addEventListener('click', function () {
   clearTableStudents();
   renderStudentsTable(sortStudents(studentsList, 'startStudy', false));
 });
@@ -250,19 +253,28 @@ let filteredStudents = [];
 function filter(arr, prop, value) {
   let result = [];
   let copy = [...arr];
-  console.log('HELLLOO');
-  for(const item of copy){
-    if(String(item[prop]).includes(value) == true) result.push(item)
+  for (const item of copy) {
+    if (String(item[prop]).includes(value) == true) result.push(item)
   }
   return result
 };
 
-let startFilter = document.querySelector('.filterStudent');
-console.log(startFilter);
+function filterFIO(arr, value) {
+  let result = [];
+  let copy = [...arr];
+  for (const item of copy) {
+    if (String(item['secondName'] + ' ' + item['firstName'] + ' ' + item['middleName']).includes(value) == true) result.push(item)
+  }
+  return result
+};
 
-startFilter.addEventListener('submit', function(event) {
+
+
+
+let startFilter = document.getElementById('filter-form');
+
+startFilter.addEventListener('submit', function (event) {
   event.preventDefault();
-  console.log('fgdfgdfg');
   renderStudentsTable(studentsList);
 }
 
