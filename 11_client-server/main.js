@@ -115,9 +115,9 @@ function getStudentItem(studentObj) {
 
 // Этап 4. Создайте функцию отрисовки всех студентов. Аргументом функции будет массив студентов.Функция должна использовать ранее созданную функцию создания одной записи для студента.Цикл поможет вам создать список студентов.Каждый раз при изменении списка студента вы будете вызывать эту функцию для отрисовки таблицы.
 
-async function renderStudentsTable() {
+function renderStudentsTable(studentsArray) {
 
-  let studentsArray = await getStudentsList();
+  // let studentsArray = await getStudentsList();
 
   let tbody = document.querySelector(".studentsList");
 
@@ -166,8 +166,9 @@ function clearTableStudents() {
   }
 }
 
-function addStudent() {
-  renderStudentsTable();
+async function addStudent() {
+
+  renderStudentsTable(await getStudentsList());
   let studentForm = document.querySelector(".studentForm");
 
   studentForm.addEventListener('submit', async function (e) {
@@ -224,7 +225,7 @@ function addStudent() {
       }
     });
 
-    renderStudentsTable();
+    renderStudentsTable(await getStudentsList());
   }
   )
 };
@@ -253,6 +254,7 @@ sortName.addEventListener('click', async function () {
 
 sortDepartment.addEventListener('click',async function () {
   clearTableStudents();
+  // console.log('cliCKKK');
   renderStudentsTable(sortStudents(await getStudentsList(), 'department', false));
 });
 
@@ -292,9 +294,9 @@ function filterFIO(arr, value) {
 
 let startFilter = document.getElementById('filter-form');
 
-startFilter.addEventListener('submit', function (event) {
+startFilter.addEventListener('submit', async function (event) {
   event.preventDefault();
-  renderStudentsTable(getStudentsList());
+  renderStudentsTable(await getStudentsList());
 }
 
 )
