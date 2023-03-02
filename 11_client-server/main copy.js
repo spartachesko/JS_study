@@ -5,72 +5,75 @@
 
 // Этап 2. Создайте массив объектов студентов.Добавьте в него объекты студентов, например 5 студентов.
 
-// const studentsList = [
-//   // Добавьте сюда объекты студентов
-//   {
-//     firstName: "Петр",
-//     secondName: "Иванов",
-//     middleName: "Максимович",
-//     bDay: new Date(1995, 11, 17),
-//     startStudy: 2002,
-//     department: 'Экономический',
-//   },
-//   {
-//     firstName: "Константин",
-//     secondName: "Петров",
-//     middleName: "Сидорович",
-//     bDay: new Date(1997, 9, 1),
-//     startStudy: 2014,
-//     department: 'Физический',
-//   },
-//   {
-//     firstName: "Анна",
-//     secondName: "Иванова",
-//     middleName: "Олеговна",
-//     bDay: new Date(1990, 2, 10),
-//     startStudy: 2011,
-//     department: 'Филологический',
-//   },
-//   {
-//     firstName: "Вероника",
-//     secondName: "Колышева",
-//     middleName: "Денисовна",
-//     bDay: new Date(2000, 11, 2),
-//     startStudy: 2020,
-//     department: 'Экономический',
-//   },
-//   {
-//     firstName: "Никита",
-//     secondName: "Кошкин",
-//     middleName: "Сидорович",
-//     bDay: new Date(2001, 1, 17),
-//     startStudy: 2022,
-//     department: 'Физический',
-//   },
-// ]
+const studentsList = [
+  // Добавьте сюда объекты студентов
+  {
+    firstName: "Петр",
+    secondName: "Иванов",
+    middleName: "Максимович",
+    bDay: new Date(1995, 11, 17),
+    startStudy: 2002,
+    department: 'Экономический',
+  },
+  {
+    firstName: "Константин",
+    secondName: "Петров",
+    middleName: "Сидорович",
+    bDay: new Date(1997, 9, 1),
+    startStudy: 2014,
+    department: 'Физический',
+  },
+  {
+    firstName: "Анна",
+    secondName: "Иванова",
+    middleName: "Олеговна",
+    bDay: new Date(1990, 2, 10),
+    startStudy: 2011,
+    department: 'Филологический',
+  },
+  {
+    firstName: "Вероника",
+    secondName: "Колышева",
+    middleName: "Денисовна",
+    bDay: new Date(2000, 11, 2),
+    startStudy: 2020,
+    department: 'Экономический',
+  },
+  {
+    firstName: "Никита",
+    secondName: "Кошкин",
+    middleName: "Сидорович",
+    bDay: new Date(2001, 1, 17),
+    startStudy: 2022,
+    department: 'Физический',
+  },
+]
 
-async function getStudentsList(){
-  const response = await fetch("http://localhost:3000/api/students")
-  let studentsArray = await response.json();
-  return studentsArray;
-}
+// async function getStudentsList(){
+//   const response = await fetch('http://localhost:3000/api/students', {
+//     method: 'GET',
+//     body:
+//   }
+
+//   ) 
+// }
 
 // Этап 3. Создайте функцию вывода одного студента в таблицу, по аналогии с тем, как вы делали вывод одного дела в модуле 8. Функция должна вернуть html элемент с информацией и пользователе.У функции должен быть один аргумент - объект студента.
 function formatDate(date) {
-  var dd = new Date(date).getDate();
+
+  var dd = date.getDate();
   if (dd < 10) dd = '0' + dd;
 
-  var mm = new Date(date).getMonth() + 1;
+  var mm = date.getMonth() + 1;
   if (mm < 10) mm = '0' + mm;
 
-  var yy = new Date(date).getFullYear();
+  var yy = date.getFullYear();
   if (yy < 10) yy = '0' + yy;
 
   return dd + '.' + mm + '.' + yy;
 }
 
 function howCourse(startYear) {
-  startYear = parseInt(startYear);
   let endYear = startYear + 4;;
   let currentYear = new Date().getFullYear();
   let currentCourse = currentYear - startYear;
@@ -95,14 +98,12 @@ function getStudentItem(studentObj) {
 
   let studentInfo = document.createElement('tr')
 
-  fullName.textContent = studentObj.lastname + ' ' + studentObj.name + ' ' + studentObj.surname;
+  fullName.textContent = studentObj.secondName + ' ' + studentObj.firstName + ' ' + studentObj.middleName;
+  department.textContent = studentObj.department;
+  let age = Math.floor((Date.now() - studentObj.bDay) / (1000 * 60 * 60 * 24 * 30 * 12));
+  bDay.textContent = formatDate(studentObj.bDay) + `(${age})`;
 
-  department.textContent = studentObj.faculty;
-  const birthdaySeconds = new Date(studentObj.birthday).getTime();
-  let age = Math.floor((Date.now() - birthdaySeconds) / (1000 * 60 * 60 * 24 * 30 * 12));
-
-  bDay.textContent = formatDate(birthdaySeconds) + `(${age})`;
-  studyInfo.textContent = howCourse(studentObj.studyStart);
+  studyInfo.textContent = howCourse(studentObj.startStudy);
 
   studentInfo.append(fullName);
   studentInfo.append(department);
@@ -115,10 +116,7 @@ function getStudentItem(studentObj) {
 
 // Этап 4. Создайте функцию отрисовки всех студентов. Аргументом функции будет массив студентов.Функция должна использовать ранее созданную функцию создания одной записи для студента.Цикл поможет вам создать список студентов.Каждый раз при изменении списка студента вы будете вызывать эту функцию для отрисовки таблицы.
 
-async function renderStudentsTable() {
-
-  let studentsArray = getStudentsList();
-
+function renderStudentsTable(studentsArray) {
   let tbody = document.querySelector(".studentsList");
 
   const fioVal = document.getElementById('filter-fio').value;
@@ -134,12 +132,9 @@ async function renderStudentsTable() {
   if (filterBday !== '') studentsArray = filter(studentsArray, 'bDay', filterBday)
   if (filterStudy !== '') studentsArray = filter(studentsArray, 'startStudy', filterStudy)
 
-  console.log(studentsArray);
-
   studentsArray.forEach(function (student) {
     tbody.append(getStudentItem(student));
   });
-
 };
 
 
@@ -168,7 +163,7 @@ function clearTableStudents() {
 }
 
 function addStudent() {
-  renderStudentsTable();
+  renderStudentsTable(studentsList);
   let studentForm = document.querySelector(".studentForm");
 
   studentForm.addEventListener('submit', async function (e) {
@@ -208,7 +203,16 @@ function addStudent() {
 
     clearTableStudents()
 
-    await fetch('http://localhost:3000/api/students', {
+    // let newStudent = {
+    //   firstName: name.value,
+    //   secondName: lastName.value,
+    //   middleName: middleName.value,
+    //   bDay: bDay.valueAsDate,
+    //   startStudy: parseInt(startStudy.value),
+    //   department: department.value,
+    // };
+
+    const response = await fetch('http://localhost:3000/api/students', {
       method: 'POST',
       body: JSON.stringify(
         {
@@ -225,7 +229,13 @@ function addStudent() {
       }
     });
 
-    renderStudentsTable();
+    // const newStudentItem = await response.json();
+    // console.log(newStudentItem);
+
+
+
+    // studentsList.unshift(newStudent);
+    renderStudentsTable(studentsList);
   }
   )
 };
@@ -295,7 +305,7 @@ let startFilter = document.getElementById('filter-form');
 
 startFilter.addEventListener('submit', function (event) {
   event.preventDefault();
-  renderStudentsTable(getStudentsList());
+  renderStudentsTable(studentsList);
 }
 
 )
