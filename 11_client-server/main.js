@@ -117,7 +117,7 @@ function getStudentItem(studentObj) {
 
 async function renderStudentsTable() {
 
-  let studentsArray = getStudentsList();
+  let studentsArray = await getStudentsList();
 
   let tbody = document.querySelector(".studentsList");
 
@@ -134,9 +134,8 @@ async function renderStudentsTable() {
   if (filterBday !== '') studentsArray = filter(studentsArray, 'bDay', filterBday)
   if (filterStudy !== '') studentsArray = filter(studentsArray, 'startStudy', filterStudy)
 
-  console.log(studentsArray);
 
-  studentsArray.forEach(function (student) {
+  studentsArray.forEach(student => {
     tbody.append(getStudentItem(student));
   });
 
@@ -246,25 +245,25 @@ let sortStudy = document.querySelector(".sortStudy");
 
 
 
-sortName.addEventListener('click', function () {
+sortName.addEventListener('click', async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(studentsList, 'secondName', false));
+  renderStudentsTable(sortStudents(await getStudentsList(), 'secondName', false));
 
 });
 
-sortDepartment.addEventListener('click', function () {
+sortDepartment.addEventListener('click',async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(studentsList, 'department', false));
+  renderStudentsTable(sortStudents(await getStudentsList(), 'department', false));
 });
 
-sortBDay.addEventListener('click', function () {
+sortBDay.addEventListener('click',async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(studentsList, 'bDay', false));
+  renderStudentsTable(sortStudents(await getStudentsList(), 'bDay', false));
 });
 
-sortStudy.addEventListener('click', function () {
+sortStudy.addEventListener('click',async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(studentsList, 'startStudy', false));
+  renderStudentsTable(sortStudents(await getStudentsList(), 'startStudy', false));
 });
 
 
