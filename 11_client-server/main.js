@@ -92,22 +92,31 @@ function getStudentItem(studentObj) {
   let department = document.createElement('td');
   let bDay = document.createElement('td');
   let studyInfo = document.createElement('td');
+  let btnRemove = document.createElement('button');
+  btnRemove.textContent = 'Удалить';
+  btnRemove.classList.add("btn-danger");
+  btnRemove.classList.add("btn");
+  btnRemove.style.color = "red";
 
+
+  
   let studentInfo = document.createElement('tr')
 
   fullName.textContent = studentObj.lastname + ' ' + studentObj.name + ' ' + studentObj.surname;
-
+  
   department.textContent = studentObj.faculty;
   const birthdaySeconds = new Date(studentObj.birthday).getTime();
   let age = Math.floor((Date.now() - birthdaySeconds) / (1000 * 60 * 60 * 24 * 30 * 12));
-
+  
   bDay.textContent = formatDate(birthdaySeconds) + `(${age})`;
   studyInfo.textContent = howCourse(studentObj.studyStart);
 
+  
   studentInfo.append(fullName);
   studentInfo.append(department);
   studentInfo.append(bDay);
   studentInfo.append(studyInfo);
+  studentInfo.append(btnRemove);
 
   return studentInfo;
 
@@ -116,7 +125,7 @@ function getStudentItem(studentObj) {
 // Этап 4. Создайте функцию отрисовки всех студентов. Аргументом функции будет массив студентов.Функция должна использовать ранее созданную функцию создания одной записи для студента.Цикл поможет вам создать список студентов.Каждый раз при изменении списка студента вы будете вызывать эту функцию для отрисовки таблицы.
 
 function renderStudentsTable(studentsArray) {
-
+  console.log('studentsArray', studentsArray);
   // let studentsArray = await getStudentsList();
 
   let tbody = document.querySelector(".studentsList");
@@ -248,24 +257,27 @@ let sortStudy = document.querySelector(".sortStudy");
 
 sortName.addEventListener('click', async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(await getStudentsList(), 'secondName', false));
-
+  let students = await getStudentsList();
+  renderStudentsTable(sortStudents(students, 'name', true));
+  
 });
 
 sortDepartment.addEventListener('click',async function () {
   clearTableStudents();
-  // console.log('cliCKKK');
-  renderStudentsTable(sortStudents(await getStudentsList(), 'department', false));
+  let students = await getStudentsList();
+  renderStudentsTable(sortStudents(students, 'faculty', false));
 });
 
 sortBDay.addEventListener('click',async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(await getStudentsList(), 'bDay', false));
+  let students = await getStudentsList();
+  renderStudentsTable(sortStudents(students, 'birthday', false));
 });
 
 sortStudy.addEventListener('click',async function () {
   clearTableStudents();
-  renderStudentsTable(sortStudents(await getStudentsList(), 'startStudy', false));
+  let students = await getStudentsList();
+  renderStudentsTable(sortStudents(students, 'studyStart', false));
 });
 
 
