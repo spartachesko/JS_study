@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+
 // Этап 1. В HTML файле создайте верстку элементов, которые будут статичны(неизменны).
 
 
@@ -49,7 +52,7 @@
 //   },
 // ]
 
-async function getStudentsList(){
+async function getStudentsList() {
   const response = await fetch("http://localhost:3000/api/students")
   let studentsArray = await response.json();
   return studentsArray;
@@ -96,22 +99,23 @@ function getStudentItem(studentObj) {
   btnRemove.textContent = 'Удалить';
   btnRemove.classList.add("btn-danger");
   btnRemove.classList.add("btn");
+  btnRemove.classList.add("studentBtn");
   btnRemove.style.color = "red";
+  btnRemove.setAttribute('id', studentObj.id);
 
 
-  
   let studentInfo = document.createElement('tr')
 
   fullName.textContent = studentObj.lastname + ' ' + studentObj.name + ' ' + studentObj.surname;
-  
+
   department.textContent = studentObj.faculty;
   const birthdaySeconds = new Date(studentObj.birthday).getTime();
   let age = Math.floor((Date.now() - birthdaySeconds) / (1000 * 60 * 60 * 24 * 30 * 12));
-  
+
   bDay.textContent = formatDate(birthdaySeconds) + `(${age})`;
   studyInfo.textContent = howCourse(studentObj.studyStart);
 
-  
+
   studentInfo.append(fullName);
   studentInfo.append(department);
   studentInfo.append(bDay);
@@ -126,7 +130,6 @@ function getStudentItem(studentObj) {
 
 function renderStudentsTable(studentsArray) {
   console.log('studentsArray', studentsArray);
-  // let studentsArray = await getStudentsList();
 
   let tbody = document.querySelector(".studentsList");
 
@@ -148,6 +151,8 @@ function renderStudentsTable(studentsArray) {
     tbody.append(getStudentItem(student));
   });
 
+  console.log('tbody', tbody);
+  
 };
 
 
@@ -239,9 +244,16 @@ async function addStudent() {
   )
 };
 
-
-
 addStudent();
+
+async function deleteStudent() {
+  let btnRemove = document.querySelector(".studentBtn");
+  console.log('btnRemove', btnRemove);
+}
+
+
+
+// btnRemove.addEventListener('click', deleteStudent());
 
 // Этап 5. Создайте функцию сортировки массива студентов и добавьте события кликов на соответствующие колонки.
 
@@ -259,22 +271,22 @@ sortName.addEventListener('click', async function () {
   clearTableStudents();
   let students = await getStudentsList();
   renderStudentsTable(sortStudents(students, 'name', true));
-  
+
 });
 
-sortDepartment.addEventListener('click',async function () {
+sortDepartment.addEventListener('click', async function () {
   clearTableStudents();
   let students = await getStudentsList();
   renderStudentsTable(sortStudents(students, 'faculty', false));
 });
 
-sortBDay.addEventListener('click',async function () {
+sortBDay.addEventListener('click', async function () {
   clearTableStudents();
   let students = await getStudentsList();
   renderStudentsTable(sortStudents(students, 'birthday', false));
 });
 
-sortStudy.addEventListener('click',async function () {
+sortStudy.addEventListener('click', async function () {
   clearTableStudents();
   let students = await getStudentsList();
   renderStudentsTable(sortStudents(students, 'studyStart', false));
@@ -311,5 +323,17 @@ startFilter.addEventListener('submit', async function (event) {
   renderStudentsTable(await getStudentsList());
 }
 
+
 )
 
+// let btnRemove = document.querySelectorAll(".studentBtn");
+let studentsList = document.querySelector(".studentsList");
+console.log('погнали');
+studentsList.forEach(student => {
+  console.log('student',student);
+  console.log('HI');
+  // console.log('student');
+});
+// console.log('studentsList2', studentsList);
+
+});
