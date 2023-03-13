@@ -152,7 +152,7 @@ function renderStudentsTable(studentsArray) {
   });
 
   console.log('tbody', tbody);
-  
+
 };
 
 
@@ -336,4 +336,12 @@ studentsList.forEach(student => {
 });
 // console.log('studentsList2', studentsList);
 
+});
+
+let studentsList = document.querySelector(".studentsList");
+console.log('studentsListstudentsList',studentsList);
+studentsList.forEach(student => {
+  console.log('student',student);
+  console.log('HI');
+  // console.log('student');
 });
